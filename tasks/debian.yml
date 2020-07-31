@@ -16,7 +16,7 @@
     repo: "deb [arch=amd64] https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable"
     state: present
 
-- name: Install docker-ce Debian package from apt 
+- name: Install docker-ce Debian package from apt
   apt:
     name: "docker-ce"
     state: present
