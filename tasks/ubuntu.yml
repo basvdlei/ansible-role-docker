@@ -1,0 +1,24 @@
+---
+- name: Install Docker dependencies Ubuntu packages
+  apt:
+    name: "{{ docker_deps }}"
+    state: present
+    force_apt_get: "yes"
+    update_cache: "yes"
+
+- name: Add Docker's GPG key for their Ubuntu apt repository
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+
+- name: Add Docker's Ubuntu apt Repository
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+    state: present
+
+- name: Install docker-ce Ubuntu package from apt 
+  apt:
+    name: "docker-ce"
+    state: present
+    force_apt_get: "yes"
+    update_cache: "yes"

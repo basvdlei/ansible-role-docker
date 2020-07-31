@@ -1,0 +1,31 @@
+---
+- name: Create /etc/docker
+  file:
+    path: "/etc/docker"
+    state: directory
+    mode: '0755'
+    owner: root
+    group: root
+
+- name: Configure Docker Daemon
+  copy:
+    src: docker-daemon.json
+    dest: /etc/docker/daemon.json
+
+- name: Create docker group
+  group:
+    name: "docker"
+    state: present
+
+- name: Add user {{ item }} to docker group
+  user:
+    name: "{{ item }}"
+    groups: "docker"
+    append: "yes"
+  loop: "{{ docker_users }}"
+  register: dockergroup
+
+# This is not implemented for a local connection (yet)...
+- name: Reset connection to allow user change to affect the current ansible session
+  meta: reset_connection
+  when: dockergroup.changed

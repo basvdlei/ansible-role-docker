@@ -1,0 +1,24 @@
+---
+- name: Install Docker dependencies Debian packages
+  apt:
+    name: "{{ docker_deps }}"
+    state: present
+    force_apt_get: "yes"
+    update_cache: "yes"
+
+- name: Add Docker's GPG key for their Debian apt repository
+  apt_key:
+    url: https://download.docker.com/linux/debian/gpg
+    state: present
+
+- name: Add Docker's Debian apt repository
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable"
+    state: present
+
+- name: Install docker-ce Debian package from apt 
+  apt:
+    name: "docker-ce"
+    state: present
+    force_apt_get: "yes"
+    update_cache: "yes"

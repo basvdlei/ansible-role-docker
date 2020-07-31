@@ -1,0 +1,13 @@
+---
+# tasks file for ansible-role-docker
+- import_tasks: configure.yml
+- import_tasks: debian.yml
+  when: ansible_facts['distribution']|lower == "debian"
+- import_tasks: ubuntu.yml
+  when: ansible_facts['distribution']|lower == "ubuntu"
+- name: Test Docker with hello world example
+  command: "docker run --rm hello-world"
+  changed_when: false
+- name: Install Docker Python module
+  pip:
+    name: docker
