@@ -24,6 +24,8 @@
     append: "yes"
   loop: "{{ docker_users }}"
   register: dockergroup
+  when:
+    - docker_users is defined
 
 # This is not implemented for a local connection (yet)...
 - name: Reset connection to allow user change to affect the current ansible session
