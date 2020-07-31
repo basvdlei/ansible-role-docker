@@ -22,9 +22,8 @@ Available variables are listed below, along with default values (see
 `defaults/main.yml`):
 
 	docker_users:
-	  - "{{ ansible_user }}"
 
-Users that are allowed to access the Docker daemon.
+List of users that are allowed to access the Docker daemon.
 
 Example Playbook
 ----------------
