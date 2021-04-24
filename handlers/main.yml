@@ -1,2 +1,6 @@
 ---
 # handlers file for ansible-role-docker
+- name: Reload docker.service
+  systemd:
+    name: "docker.service"
+    state: reloaded

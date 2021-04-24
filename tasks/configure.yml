@@ -11,6 +11,8 @@
   copy:
     src: docker-daemon.json
     dest: /etc/docker/daemon.json
+  notify:
+    - Reload docker.service
 
 - name: Create docker group
   group:
@@ -30,4 +32,3 @@
 # This is not implemented for a local connection (yet)...
 - name: Reset connection to allow user change to affect the current ansible session
   meta: reset_connection
-  when: dockergroup.changed
